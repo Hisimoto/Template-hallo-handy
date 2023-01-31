@@ -1,18 +1,18 @@
 package HalloHandy.services;
 
-import java.io.File;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
 import HalloHandy.entity.EmailDetails;
 import HalloHandy.interfaces.EmailService;
+import HalloHandy.util.EmailUtil;
+import jakarta.mail.Authenticator;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+
+import java.util.Properties;
 
 // Annotation
 @Service
@@ -26,72 +26,63 @@ public class EmailServiceImpl implements EmailService {
 
     // Method 1
     // To send a simple email
-    public String sendSimpleMail(EmailDetails details)
-    {
+    public String sendSimpleMail(EmailDetails details) {
 
-        // Try block to check for exceptions
-        try {
+        final String fromEmail = "hallo.handy23@gmail.com"; //requires valid gmail id
+        final String password = "qzfoebfsqhjrqjok"; // correct password for gmail id
+        final String toEmail = "capbatut.cc@gmail.com"; // can be any email id
 
-            // Creating a simple mail message
-            SimpleMailMessage mailMessage
-                    = new SimpleMailMessage();
+        System.out.println("SSLEmail Start");
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
+        props.put("mail.smtp.socketFactory.port", "465"); //SSL Port
+        props.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory"); //SSL Factory Class
+        props.put("mail.smtp.auth", "true"); //Enabling SMTP Authentication
+        props.put("mail.smtp.port", "465"); //SMTP Port
 
-            // Setting up necessary details
-            mailMessage.setFrom(sender);
-            mailMessage.setTo(details.getRecipient());
-            mailMessage.setText(details.getMsgBody());
-            mailMessage.setSubject(details.getSubject());
+        Authenticator auth = new Authenticator() {
+            //override the getPasswordAuthentication method
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(fromEmail, password);
+            }
+        };
 
-            // Sending the mail
-            javaMailSender.send(mailMessage);
-            return "Mail Sent Successfully...";
-        }
-
-        // Catch block to handle the exceptions
-        catch (Exception e) {
-            return "Error while Sending Mail";
-        }
+        Session session = Session.getDefaultInstance(props, auth);
+        System.out.println("Session created");
+        EmailUtil.sendEmail(session, toEmail,"Template subject", "This is test body");
+        return new String("ok");
     }
 
-    // Method 2
-    // To send an email with attachment
-    public String
-    sendMailWithAttachment(EmailDetails details)
-    {
-        // Creating a mime message
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper;
+    /**
+     * Utility method to send email with attachment
+     * @param details
+     */
+    public  String sendMailWithAttachment(EmailDetails details){
+        final String fromEmail = "myemailid@gmail.com"; //requires valid gmail id
+        final String password = "mypassword"; // correct password for gmail id
+        final String toEmail = "myemail@yahoo.com"; // can be any email id
 
-        try {
+        System.out.println("SSLEmail Start");
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
+        props.put("mail.smtp.socketFactory.port", "465"); //SSL Port
+        props.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory"); //SSL Factory Class
+        props.put("mail.smtp.auth", "true"); //Enabling SMTP Authentication
+        props.put("mail.smtp.port", "465"); //SMTP Port
 
-            // Setting multipart as true for attachments to
-            // be send
-            mimeMessageHelper
-                    = new MimeMessageHelper(mimeMessage, true);
-            mimeMessageHelper.setFrom(sender);
-            mimeMessageHelper.setTo(details.getRecipient());
-            mimeMessageHelper.setText(details.getMsgBody());
-            mimeMessageHelper.setSubject(
-                    details.getSubject());
+        Authenticator auth = new Authenticator() {
+            //override the getPasswordAuthentication method
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(fromEmail, password);
+            }
+        };
 
-            // Adding the attachment
-            FileSystemResource file
-                    = new FileSystemResource(
-                    new File(details.getAttachment()));
+        Session session = Session.getDefaultInstance(props, auth);
+        System.out.println("Session created");
+        EmailUtil.sendEmail(session, toEmail,"SSLEmail Testing Subject", "SSLEmail Testing Body");
 
-            mimeMessageHelper.addAttachment(
-                    file.getFilename(), file);
-
-            // Sending the mail
-            javaMailSender.send(mimeMessage);
-            return "Mail sent Successfully";
-        }
-
-        // Catch block to handle MessagingException
-        catch (MessagingException e) {
-
-            // Display message when exception occurred
-            return "Error while sending mail!!!";
-        }
+        return new String("ok");
     }
 }
