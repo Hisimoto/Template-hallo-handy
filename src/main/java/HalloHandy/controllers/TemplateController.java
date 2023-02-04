@@ -1,7 +1,10 @@
 package HalloHandy.controllers;
 
+import HalloHandy.dto.TemplateDTO;
 import HalloHandy.entity.Template;
+import HalloHandy.interfaces.TemplateService;
 import HalloHandy.repository.TemplateRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +14,7 @@ import java.util.List;
 public class TemplateController {
 
     // standard constructors
+    @Autowired private TemplateService templateService;
 
     private final TemplateRepository templateRepository;
 
@@ -23,8 +27,9 @@ public class TemplateController {
         return (List<Template>) templateRepository.findAll();
     }
 
-    @PostMapping("/templates")
-    void addTemplate(@RequestBody Template template) {
-        templateRepository.save(template);
-    }
+    @PostMapping("/template")
+    void addTemplate(@RequestBody TemplateDTO template) {
+
+        templateService.saveTemplate(template);
+        }
 }

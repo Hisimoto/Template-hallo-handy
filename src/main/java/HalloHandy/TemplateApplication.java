@@ -2,6 +2,7 @@ package HalloHandy;
 
 import HalloHandy.entity.Template;
 import HalloHandy.repository.TemplateRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,11 +21,7 @@ public class TemplateApplication {
     @Bean
     CommandLineRunner init(TemplateRepository templateRepository) {
         return args -> {
-            Stream.of("John", "Julie", "Jennifer", "Helen", "Rachel").forEach(name -> {
-                Template template = new Template(name, name.toLowerCase() + "@domain.com");
-                templateRepository.save(template);
-            });
-            templateRepository.findAll().forEach(System.out::println);
+
         };
     }
     @Bean
@@ -43,5 +40,9 @@ public class TemplateApplication {
         props.put("mail.debug", "true");
 
         return mailSender;
+    }
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 }

@@ -8,7 +8,6 @@ import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 
@@ -20,8 +19,6 @@ import java.util.Properties;
 // Implementing EmailService interface
 public class EmailServiceImpl implements EmailService {
 
-    @Autowired private JavaMailSender javaMailSender;
-
     @Value("${spring.mail.username}") private String sender;
 
     // Method 1
@@ -30,7 +27,7 @@ public class EmailServiceImpl implements EmailService {
 
         final String fromEmail = "hallo.handy23@gmail.com"; //requires valid gmail id
         final String password = "qzfoebfsqhjrqjok"; // correct password for gmail id
-        final String toEmail = "capbatut.cc@gmail.com"; // can be any email id
+        details.setRecipient("capbatut.cc@gmail.com");
 
         System.out.println("SSLEmail Start");
         Properties props = new Properties();
@@ -50,7 +47,7 @@ public class EmailServiceImpl implements EmailService {
 
         Session session = Session.getDefaultInstance(props, auth);
         System.out.println("Session created");
-        EmailUtil.sendEmail(session, toEmail,"Template subject", "This is test body");
+        EmailUtil.sendEmail(session, details);
         return new String("ok");
     }
 
@@ -61,7 +58,8 @@ public class EmailServiceImpl implements EmailService {
     public  String sendMailWithAttachment(EmailDetails details){
         final String fromEmail = "myemailid@gmail.com"; //requires valid gmail id
         final String password = "mypassword"; // correct password for gmail id
-        final String toEmail = "myemail@yahoo.com"; // can be any email id
+
+        details.setRecipient("capbatut.cc@gmail.com");
 
         System.out.println("SSLEmail Start");
         Properties props = new Properties();
@@ -81,7 +79,7 @@ public class EmailServiceImpl implements EmailService {
 
         Session session = Session.getDefaultInstance(props, auth);
         System.out.println("Session created");
-        EmailUtil.sendEmail(session, toEmail,"SSLEmail Testing Subject", "SSLEmail Testing Body");
+        EmailUtil.sendEmail(session, details);
 
         return new String("ok");
     }

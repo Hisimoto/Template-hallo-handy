@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 
 @Entity
+@Table(name="requests")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,20 +18,8 @@ public class Template {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "name", nullable = false)
     private  String name;
+    @Column(name = "email")
     private  String email;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Template( String name, String email) {
-
-        this.name = name;
-        this.email = email;
-    }
 }

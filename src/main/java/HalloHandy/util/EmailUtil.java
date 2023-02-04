@@ -1,5 +1,6 @@
 package HalloHandy.util;
 
+import HalloHandy.entity.EmailDetails;
 import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;
 import jakarta.activation.FileDataSource;
@@ -19,11 +20,9 @@ public class EmailUtil {
     /**
      * Utility method to send simple HTML email
      * @param session
-     * @param toEmail
-     * @param subject
-     * @param body
+     * @param emailDetails
      */
-    public static void sendEmail(Session session, String toEmail, String subject, String body){
+    public static void sendEmail(Session session, EmailDetails emailDetails){
         try
         {
             MimeMessage msg = new MimeMessage(session);
@@ -36,13 +35,13 @@ public class EmailUtil {
 
             msg.setReplyTo(InternetAddress.parse("no_reply@example.com", false));
 
-            msg.setSubject(subject, "UTF-8");
+            msg.setSubject(emailDetails.getSubject(), "UTF-8");
 
-            msg.setText(body, "UTF-8");
+            msg.setText(emailDetails.getMsgBody(), "UTF-8");
 
             msg.setSentDate(new Date());
 
-            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailDetails.getRecipient(), false));
             System.out.println("Message is ready");
             Transport.send(msg);
 
