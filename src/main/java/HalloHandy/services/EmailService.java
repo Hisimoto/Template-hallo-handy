@@ -1,7 +1,7 @@
-package HalloHandy.interfaces;
+package HalloHandy.services;
 
 
-import HalloHandy.entity.EmailDetails;
+import HalloHandy.data.EmailDetails;
 
 
 public interface EmailService {

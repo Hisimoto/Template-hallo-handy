@@ -1,8 +1,8 @@
 package HalloHandy.controllers;
 
 
-import HalloHandy.entity.EmailDetails;
-import HalloHandy.interfaces.EmailService;
+import HalloHandy.data.EmailDetails;
+import HalloHandy.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,0 +1,29 @@
+# ===============================
+#   APP INFO
+# ===============================
+info:
+  app:
+    name: ${spring.application.name}
+    description: Enabld Billing service for CPaaS
+    version: 1.0.0
+    java-vendor:  ${java.specification.vendor}
+
+# ==============================================================
+#   HTTP Server Configuration
+# ==============================================================
+server:
+  address: ${HOST:0.0.0.0}
+  port:
+    min: ${MIN_PORT:8070}
+    max: ${MAX_PORT:8070}
+    ignore: ${IGNORE_PORT:8080,8090,8760}
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+
+# ==============================================================
+#   API Version Configuration
+# ==============================================================
+api:
+  endpoint: /api/service/template

@@ -1,4 +1,4 @@
-package HalloHandy.entity;
+package HalloHandy.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

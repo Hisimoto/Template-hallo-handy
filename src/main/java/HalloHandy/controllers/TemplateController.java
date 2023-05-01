@@ -1,30 +1,32 @@
 package HalloHandy.controllers;
 
-import HalloHandy.entity.Template;
+import HalloHandy.dto.TemplateDto;
 import HalloHandy.repository.TemplateRepository;
+import HalloHandy.services.TemplateService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping(value="${api.endpoint}")
 public class TemplateController {
 
     // standard constructors
 
-    private final TemplateRepository templateRepository;
+    private final TemplateService templateService;
 
-    public TemplateController(TemplateRepository templateRepository) {
-        this.templateRepository = templateRepository;
+    public TemplateController(TemplateService templateService) {
+        this.templateService = templateService;
     }
 
-    @GetMapping("/templates")
-    public List<Template> getTemplates() {
-        return (List<Template>) templateRepository.findAll();
+    @GetMapping("/")
+    public List<TemplateDto> getTemplates() {
+        return (List<TemplateDto>) templateService.getTemplates();
     }
 
-    @PostMapping("/templates")
-    void addTemplate(@RequestBody Template template) {
-        templateRepository.save(template);
+    @PostMapping("/")
+    public void addTemplate(@RequestBody TemplateDto template) {
+        templateService.addTemplate(template);
     }
 }

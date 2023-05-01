@@ -1,11 +1,12 @@
-package HalloHandy.services;
+package HalloHandy.services.impl;
 
 import java.io.File;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 
-import HalloHandy.entity.EmailDetails;
-import HalloHandy.interfaces.EmailService;
+
+import HalloHandy.data.EmailDetails;
+import HalloHandy.services.EmailService;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;

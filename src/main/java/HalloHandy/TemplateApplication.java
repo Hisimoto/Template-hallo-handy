@@ -20,11 +20,11 @@ public class TemplateApplication {
     @Bean
     CommandLineRunner init(TemplateRepository templateRepository) {
         return args -> {
-            Stream.of("John", "Julie", "Jennifer", "Helen", "Rachel").forEach(name -> {
-                Template template = new Template(name, name.toLowerCase() + "@domain.com");
-                templateRepository.save(template);
-            });
-            templateRepository.findAll().forEach(System.out::println);
+//            Stream.of("John", "Julie", "Jennifer", "Helen", "Rachel").forEach(name -> {
+//                Template template = new Template(name, name.toLowerCase() + "@domain.com");
+//                templateRepository.save(template);
+//            });
+//            templateRepository.findAll().forEach(System.out::println);
         };
     }
     @Bean
