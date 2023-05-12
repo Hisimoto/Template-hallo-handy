@@ -1,6 +1,6 @@
 package HalloHandy.util;
 
-import HalloHandy.entity.EmailDetails;
+import HalloHandy.data.EmailDetails;
 import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;
 import jakarta.activation.FileDataSource;

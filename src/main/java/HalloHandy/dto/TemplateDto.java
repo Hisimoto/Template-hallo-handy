@@ -23,6 +23,9 @@ public class TemplateDto {
     private  String seriennr;
     private  String imei;
     private  String zubehor ;
+    private  String signature;
+    private  String lockScreen;
+    private  String preis;
     private  boolean fehferdiagnose;
     private  boolean akku;
     private  boolean annaherungssensor;

@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.Id;
 
 
@@ -43,6 +44,12 @@ public class Template extends AbstractEntity {
     private  String imei;
     @Column(name = "zubehor")
     private  String zubehor ;
+    @Column(name="signature")
+    private byte[] signature;
+    @Column(name="lockScreen")
+    private  String lockScreen;
+    @Column(name="preis")
+    private  String preis;
     @Column(name = "fehferdiagnose")
     private  boolean fehferdiagnose;
     @Column(name = "akku")

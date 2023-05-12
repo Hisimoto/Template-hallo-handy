@@ -22,7 +22,7 @@ public class TemplateController {
 
     @GetMapping("/")
     public List<TemplateDto> getTemplates() {
-        return (List<TemplateDto>) templateService.getTemplates();
+        return  templateService.getTemplates();
     }
 
     @PostMapping("/")
