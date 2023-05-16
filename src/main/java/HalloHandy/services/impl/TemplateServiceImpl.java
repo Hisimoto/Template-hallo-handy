@@ -7,8 +7,11 @@ import HalloHandy.mappers.TemplateMapper;
 import HalloHandy.repository.TemplateRepository;
 import HalloHandy.services.EmailService;
 import HalloHandy.services.TemplateService;
+import HalloHandy.util.ExportUtil;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 @Service
@@ -17,11 +20,13 @@ public class TemplateServiceImpl implements TemplateService {
   private final TemplateRepository templateRepository;
   private final EmailService emailService;
   private final TemplateMapper templateMapper;
+  private final ExportUtil exportUtil;
 
-    public TemplateServiceImpl(TemplateRepository templateRepository, EmailService emailService, TemplateMapper templateMapper) {
+    public TemplateServiceImpl(TemplateRepository templateRepository, EmailService emailService, TemplateMapper templateMapper, ExportUtil exportUtil) {
         this.templateRepository = templateRepository;
         this.emailService = emailService;
         this.templateMapper = templateMapper;
+        this.exportUtil = exportUtil;
     }
 
     @Override
@@ -36,9 +41,9 @@ public class TemplateServiceImpl implements TemplateService {
         templateRepository.save(template);
     }
     @Override
-    public List<TemplateDto> getTemplates() {
-        List<Template> dtos = templateRepository.findAll();
-        return templateMapper.toDTOs(dtos);
+    public InputStream getTemplates() {
+        List<Template> templates = templateRepository.findAll();
+        return new ByteArrayInputStream(exportUtil.exportTemplatesInfo(templateMapper.toDTOs(templates)));
     }
 
     private String makeTemplateBody (TemplateDto template){

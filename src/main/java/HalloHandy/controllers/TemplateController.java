@@ -3,8 +3,13 @@ package HalloHandy.controllers;
 import HalloHandy.dto.TemplateDto;
 import HalloHandy.repository.TemplateRepository;
 import HalloHandy.services.TemplateService;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -20,9 +25,17 @@ public class TemplateController {
         this.templateService = templateService;
     }
 
-    @GetMapping("/")
-    public List<TemplateDto> getTemplates() {
-        return  templateService.getTemplates();
+    @PostMapping("/export")
+    public ResponseEntity<?> getTemplates() {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = currentDate.format(formatter);
+        String fileName = formattedDate + ".xlsx";
+        return ResponseEntity
+                .ok()
+                .header("Content-Disposition", "attachment; filename=" + fileName)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(new InputStreamResource(templateService.getTemplates()));
     }
 
     @PostMapping("/")
