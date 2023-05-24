@@ -42,4 +42,9 @@ public class TemplateController {
     public void addTemplate(@RequestBody TemplateDto template) {
         templateService.addTemplate(template);
     }
+
+    @GetMapping("/")
+    public String home() {
+        return "Hello World";
+    }
 }
