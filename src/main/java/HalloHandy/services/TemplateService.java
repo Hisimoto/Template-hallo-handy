@@ -1,12 +1,18 @@
 package HalloHandy.services;
 
+import HalloHandy.dto.Pageable.Page;
 import HalloHandy.dto.TemplateDto;
-import org.springframework.web.bind.annotation.RequestBody;
+import HalloHandy.dto.TemplatePage;
+import HalloHandy.entity.Template;
 
 import java.io.InputStream;
 import java.util.List;
 
 public interface TemplateService {
-    InputStream getTemplates();
-    void addTemplate(TemplateDto template);
+    InputStream exportAll();
+    TemplateDto addTemplate(TemplateDto template);
+    TemplateDto resolveTemplate(Long id) throws Exception;
+    TemplatePage getTemplatesPaginatedBySearchTerm( TemplatePage page);
+    void deleteById(Long id);
+    TemplateDto getById(Long id);
 }

@@ -1,5 +1,6 @@
 package HalloHandy.dto;
 
+import HalloHandy.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TemplateDto {
-
+    private  Long id;
     private  String name;
     private  String vorname;
     private  String strabe;
@@ -50,4 +51,5 @@ public class TemplateDto {
     private  boolean wasserschaden;
     private  boolean wifiAntenne;
     private  boolean sonstigeFehler;
+    private Status status;
 }

@@ -4,7 +4,7 @@
 info:
   app:
     name: ${spring.application.name}
-    description: Enabld Billing service for CPaaS
+    description: hallo handy template
     version: 1.0.0
     java-vendor:  ${java.specification.vendor}
 
@@ -25,4 +25,4 @@ server:
 #   API Version Configuration
 # ==============================================================
 api:
-  endpoint: /hallohandy
+  endpoint: /api/hallohandy

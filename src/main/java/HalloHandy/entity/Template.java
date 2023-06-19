@@ -1,6 +1,7 @@
 package HalloHandy.entity;
 
 
+import HalloHandy.enums.Status;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -98,5 +99,7 @@ public class Template extends AbstractEntity {
     private  boolean wifiAntenne;
     @Column(name = "sonstigeFehler")
     private  boolean sonstigeFehler;
+    @Column(name = "status")
+    private Status status;
 
 }
